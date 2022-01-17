@@ -13,7 +13,7 @@ def pattern_matching(object, scene):
     matcher = cv.DescriptorMatcher_create(cv.DescriptorMatcher_FLANNBASED)
     knn_matches = matcher.knnMatch(descriptors1, descriptors2, 2)
     # -- Filter matches using the Lowe's ratio test
-    ratio_thresh = 0.7
+    ratio_thresh = 0.8
     good_matches = []
     for m, n in knn_matches:
         if m.distance < ratio_thresh * n.distance:
@@ -23,7 +23,7 @@ def pattern_matching(object, scene):
     cv.drawMatches(object, keypoints1, scene, keypoints2, good_matches, img_matches,
                    flags=cv.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
     # -- Show detected matches
-    resized = cv.resize(img_matches, (1500, 1000))
+    #resized = cv.resize(img_matches, (1500, 1000))
     cv.imshow('Good Matches', img_matches)
     cv.waitKey()
     # -- Localize the object
@@ -57,6 +57,10 @@ def pattern_matching(object, scene):
     cv.line(img_matches, (int(scene_corners[3, 0, 0] + object.shape[1]), int(scene_corners[3, 0, 1])), \
             (int(scene_corners[0, 0, 0] + object.shape[1]), int(scene_corners[0, 0, 1])), (0, 255, 0), 4)
     # -- Show detected matches
-    resized = cv.resize(img_matches, (1500, 1000))
-    cv.imshow('Good Matches', resized)
+    #resized = cv.resize(img_matches, (1500, 1000))
+    cv.imshow('Good Matches', img_matches)
     cv.waitKey()
+
+    return [(int(scene_corners[0, 0, 0]), int(scene_corners[0, 0, 1])), (int(scene_corners[2, 0, 0]), int(scene_corners[2, 0, 1]))]
+    #a = cv.rectangle(img_matches, (int(scene_corners[0, 0, 0] + object.shape[1]), int(scene_corners[0, 0, 1])),(int(scene_corners[2, 0, 0] + object.shape[1]), int(scene_corners[2, 0, 1])),(0, 255, 255), -1)
+
