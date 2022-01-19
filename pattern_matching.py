@@ -13,7 +13,7 @@ def pattern_matching(object, scene):
     matcher = cv.DescriptorMatcher_create(cv.DescriptorMatcher_FLANNBASED)
     knn_matches = matcher.knnMatch(descriptors1, descriptors2, 2)
     # -- Filter matches using the Lowe's ratio test
-    ratio_thresh = 0.8
+    ratio_thresh = 0.85
     good_matches = []
     for m, n in knn_matches:
         if m.distance < ratio_thresh * n.distance:
