@@ -1,8 +1,11 @@
 import math
 import cv2 as cv
 
+
 def show_image(img, name = 'default'):
     """
+    :param img:
+    :return: scale of the shown image
     :type name: string
     """
     copy = img.copy()
@@ -23,9 +26,11 @@ def show_image(img, name = 'default'):
     if scale_x > scale_y:
         x /= scale_x
         y /= scale_x
+        scale = scale_x
     else:
         x /= scale_y
         y /= scale_y
+        scale = scale_y
 
     x = math.ceil(x)
     y = math.ceil(y)
@@ -34,3 +39,5 @@ def show_image(img, name = 'default'):
     cv.imshow(name, copy)
     cv.waitKey()
     cv.destroyWindow(name)
+
+    return scale
